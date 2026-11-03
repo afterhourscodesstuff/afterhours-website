@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090812">
+  <meta name="description" content="Afterhours — custom websites, software, Discord development, and automation.">
+  <title>Services & Pricing — afterhours</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090812;
+      --surface: #12101d;
+      --surface-2: #181527;
+      --border: rgba(190, 166, 255, .15);
+      --text: #f4f0ff;
+      --muted: #aaa3bd;
+      --purple: #b99aff;
+      --purple-2: #8d67e8;
+      --radius: 20px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 50% -18%, rgba(115, 74, 190, .24), transparent 48%),
+        radial-gradient(ellipse at 100% 45%, rgba(80, 53, 133, .10), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: rgba(9,8,18,.78); backdrop-filter: blur(18px);
+    }
+    .nav { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font-size: 1.15rem; font-weight: 800; letter-spacing: -.06em; }
+    .brand span { color: var(--purple); }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: var(--muted); font-size: .92rem; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta, .button {
+      display: inline-flex; justify-content: center; align-items: center; gap: 9px;
+      border: 1px solid rgba(185,154,255,.45); border-radius: 999px;
+      padding: 10px 17px; color: var(--text); font-weight: 650; font-size: .9rem;
+      background: rgba(185,154,255,.10); transition: .2s ease;
+    }
+    .nav-cta:hover, .button:hover { background: rgba(185,154,255,.2); transform: translateY(-1px); }
+    .hero { text-align: center; padding: 100px 0 70px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; color: var(--purple);
+      border: 1px solid var(--border); background: rgba(185,154,255,.07);
+      border-radius: 999px; padding: 7px 13px; font-size: .78rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+    .eyebrow:before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--purple); box-shadow: 0 0 14px var(--purple); }
+    h1 { margin: 23px 0 15px; font-size: clamp(2.8rem, 7vw, 5.4rem); line-height: .99; letter-spacing: -.075em; }
+    h1 span { color: var(--purple); }
+    .hero p { max-width: 650px; margin: 0 auto; color: var(--muted); font-size: 1.08rem; }
+    .hero-actions { margin-top: 30px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .button.primary { background: linear-gradient(135deg, #a985f4, #7652cf); border-color: transparent; color: #100b1d; }
+    .button.primary:hover { filter: brightness(1.1); }
+    .subnote { margin-top: 17px !important; font-size: .82rem !important; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin: 30px 0 20px; }
+    .section-heading h2 { margin: 0; font-size: clamp(1.55rem, 3vw, 2rem); letter-spacing: -.045em; }
+    .section-heading p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .service-section { padding: 28px 0 26px; scroll-margin-top: 95px; }
+    .service-section + .service-section { border-top: 1px solid rgba(255,255,255,.07); }
+    .section-title { display: flex; align-items: center; gap: 13px; margin-bottom: 20px; }
+    .section-number {
+      width: 39px; height: 39px; display: grid; place-items: center; flex: 0 0 auto;
+      border: 1px solid var(--border); border-radius: 12px; color: var(--purple);
+      background: rgba(185,154,255,.08); font-size: .82rem; font-weight: 800;
+    }
+    .section-title h2 { margin: 0; font-size: 1.55rem; letter-spacing: -.04em; }
+    .section-title p { margin: 1px 0 0; color: var(--muted); font-size: .86rem; }
+    .premium { margin-left: auto; border: 1px solid rgba(185,154,255,.3); color: var(--purple); border-radius: 999px; padding: 5px 10px; font-size: .72rem; font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .price-card {
+      background: linear-gradient(145deg, rgba(25,22,40,.94), rgba(16,14,27,.94));
+      border: 1px solid var(--border); border-radius: 16px; padding: 19px;
+      min-height: 135px; transition: .2s ease;
+    }
+    .price-card:hover { border-color: rgba(185,154,255,.42); transform: translateY(-2px); }
+    .price-card h3 { margin: 0 0 6px; font-size: .98rem; letter-spacing: -.02em; }
+    .price-card p { margin: 0; color: var(--muted); font-size: .82rem; min-height: 25px; }
+    .price { margin-top: 13px; color: var(--purple); font-size: 1.35rem; font-weight: 800; letter-spacing: -.04em; }
+    .price small { color: var(--muted); font-size: .72rem; font-weight: 500; letter-spacing: 0; }
+    .policies { padding: 75px 0 80px; }
+    .policy-panel {
+      display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px;
+      padding: 34px; border: 1px solid var(--border); border-radius: var(--radius);
+      background: linear-gradient(130deg, rgba(31,25,50,.88), rgba(16,14,27,.92));
+    }
+    .policy-panel h2 { margin: 0 0 10px; font-size: 1.8rem; letter-spacing: -.05em; }
+    .policy-panel p { color: var(--muted); margin: 0; font-size: .92rem; }
+    .policy-list { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+    .policy-item strong { display: block; font-size: .9rem; margin-bottom: 3px; }
+    .policy-item span { color: var(--muted); font-size: .82rem; }
+    .closing { text-align: center; padding: 40px 0 90px; }
+    .closing h2 { margin: 0 0 10px; font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -.06em; }
+    .closing p { color: var(--muted); margin: 0 auto 23px; max-width: 560px; }
+    footer { border-top: 1px solid rgba(255,255,255,.07); padding: 23px 0; color: #817a94; font-size: .8rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+
+    /* Motion: subtle entrances, staggered cards, and interactive hover states. */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes soft-glow {
+      0%, 100% { text-shadow: 0 0 0 rgba(185,154,255,0); }
+      50% { text-shadow: 0 0 28px rgba(185,154,255,.28); }
+    }
+    @keyframes drift-in {
+      from { opacity: 0; transform: translateY(12px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .hero .eyebrow { animation: fade-up .7s cubic-bezier(.2,.7,.2,1) both; }
+    .hero h1 { animation: fade-up .8s .10s cubic-bezier(.2,.7,.2,1) both; }
+    .hero > p:not(.subnote) { animation: fade-up .8s .2s cubic-bezier(.2,.7,.2,1) both; }
+    .hero-actions { animation: fade-up .8s .3s cubic-bezier(.2,.7,.2,1) both; }
+    .hero h1 span { animation: soft-glow 4s 1s ease-in-out infinite; }
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+    }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .price-card {
+      opacity: 0;
+      transform: translateY(18px) scale(.99);
+      transition:
+        opacity .55s ease,
+        transform .55s cubic-bezier(.2,.7,.2,1),
+        border-color .2s ease,
+        background .2s ease;
+    }
+    .price-card.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+    .price-card:hover { background: linear-gradient(145deg, rgba(34,29,53,.98), rgba(19,16,32,.98)); }
+    .section-number { transition: transform .25s ease, box-shadow .25s ease; }
+    .service-section:hover .section-number { transform: translateY(-2px) rotate(-4deg); box-shadow: 0 7px 24px rgba(141,103,232,.14); }
+    .button { position: relative; overflow: hidden; }
+    .button:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 25%, rgba(255,255,255,.18) 48%, transparent 70%);
+      transform: translateX(-120%);
+      transition: transform .65s ease;
+      pointer-events: none;
+    }
+    .button:hover:after { transform: translateX(120%); }
+    .policy-panel, .closing .eyebrow, .closing h2, .closing p, .closing .button {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+    }
+    .policy-panel.is-visible, .closing .is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal, .price-card, .policy-panel, .closing .eyebrow, .closing h2,
+      .closing p, .closing .button {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links { gap: 14px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding: 76px 0 54px; }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .policy-panel { grid-template-columns: 1fr; gap: 25px; padding: 25px; }
+    }
+    @media (max-width: 480px) {
+      .wrap { width: min(100% - 28px, var(--max)); }
+      .nav { height: 66px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .price-card { min-height: 0; }
+      .section-heading { align-items: start; flex-direction: column; }
+      .policy-list { grid-template-columns: 1fr; }
+      .premium { font-size: .62rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#" aria-label="Afterhours home">afterhours<span>.</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#web">Services</a>
+        <a href="#policies">Pricing info</a>
+        <a class="nav-cta" href="#contact">Start a project <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div class="eyebrow">Services & pricing</div>
+      <h1>Ideas into <span>working</span> software.</h1>
+      <p>Thoughtful websites, useful applications, custom bots, and automations — built to solve real problems without unnecessary complexity.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#web">Explore services <span aria-hidden="true">↓</span></a>
+        <a class="button" href="#contact">Discuss a project <span aria-hidden="true">↗</span></a>
+      </div>
+      <p class="subnote">Clear starting prices. Custom quotes for projects that need more.</p>
+    </section>
+
+    <div class="wrap">
+      <section class="service-section" id="web">
+        <div class="section-title">
+          <div class="section-number">01</div>
+          <div><h2>Web development</h2><p>Websites and web applications made for your goals.</p></div>
+          <span class="premium">Premium services</span>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card"><h3>Single-page website</h3><p>A focused page for a product, event, or idea.</p><div class="price">From $100</div></article>
+          <article class="price-card"><h3>Portfolio website</h3><p>A polished place to showcase your work.</p><div class="price">From $125</div></article>
+          <article class="price-card"><h3>Business website</h3><p>A professional online home for a small business.</p><div class="price">From $175</div></article>
+          <article class="price-card"><h3>Multi-page website</h3><p>Multiple pages with consistent design and navigation.</p><div class="price">From $200</div></article>
+          <article class="price-card"><h3>Website redesign</h3><p>A refreshed layout and improved user experience.</p><div class="price">From $125</div></article>
+          <article class="price-card"><h3>Custom web application</h3><p>Interactive tools and browser-based applications.</p><div class="price">From $250</div></article>
+          <article class="price-card"><h3>Full-stack web application</h3><p>A larger app with backend functionality and data.</p><div class="price">From $350+</div></article>
+        </div>
+      </section>
+
+      <section class="service-section" id="software">
+        <div class="section-title">
+          <div class="section-number">02</div>
+          <div><h2>Software development</h2><p>Practical tools and custom features for everyday tasks.</p></div>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card"><h3>Python scripts</h3><p>Small scripts that handle repetitive tasks.</p><div class="price">From $25</div></article>
+          <article class="price-card"><h3>Desktop utilities</h3><p>Lightweight tools for a specific workflow.</p><div class="price">From $40</div></article>
+          <article class="price-card"><h3>Custom desktop application</h3><p>A standalone app designed around your needs.</p><div class="price">From $100</div></article>
+          <article class="price-card"><h3>Data processing tool</h3><p>Organize, transform, or process files and data.</p><div class="price">From $35</div></article>
+          <article class="price-card"><h3>Application debugging</h3><p>Investigate and fix a clearly defined issue.</p><div class="price">From $20</div></article>
+          <article class="price-card"><h3>Custom software feature</h3><p>Add a focused feature to an existing project.</p><div class="price">From $30</div></article>
+        </div>
+      </section>
+
+      <section class="service-section" id="discord">
+        <div class="section-title">
+          <div class="section-number">03</div>
+          <div><h2>Discord development</h2><p>Bots, commands, and integrations for your server.</p></div>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card"><h3>Basic Discord bot</h3><p>A small custom bot with core functionality.</p><div class="price">From $50</div></article>
+          <article class="price-card"><h3>Custom bot commands</h3><p>Individual commands for an existing bot.</p><div class="price">From $25</div></article>
+          <article class="price-card"><h3>Bot feature additions</h3><p>Add or improve a specific bot feature.</p><div class="price">From $30</div></article>
+          <article class="price-card"><h3>API integration</h3><p>Connect a bot to an external service.</p><div class="price">From $50</div></article>
+          <article class="price-card"><h3>Advanced bot functionality</h3><p>More involved systems and multi-part features.</p><div class="price">From $75</div></article>
+        </div>
+      </section>
+
+      <section class="service-section" id="automation">
+        <div class="section-title">
+          <div class="section-number">04</div>
+          <div><h2>Automation & integrations</h2><p>Make different tools work together and cut down repetitive work.</p></div>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card"><h3>Simple automation</h3><p>Automate one small, repeatable task.</p><div class="price">From $25</div></article>
+          <article class="price-card"><h3>File management automation</h3><p>Sort, rename, or organize files automatically.</p><div class="price">From $30</div></article>
+          <article class="price-card"><h3>API integration</h3><p>Connect an app or service through its API.</p><div class="price">From $50</div></article>
+          <article class="price-card"><h3>Scheduled task automation</h3><p>Run routine tasks on a defined schedule.</p><div class="price">From $30</div></article>
+          <article class="price-card"><h3>Custom workflow</h3><p>Link several steps into one useful process.</p><div class="price">From $50</div></article>
+          <article class="price-card"><h3>Multi-service integration</h3><p>Connect multiple services into one workflow.</p><div class="price">From $75</div></article>
+        </div>
+      </section>
+    </div>
+
+    <section class="policies wrap" id="policies">
+      <div class="policy-panel">
+        <div>
+          <div class="eyebrow">The details</div>
+          <h2>Simple pricing. No surprises.</h2>
+          <p>Every project starts with a quick scope check. The final quote depends on the features, complexity, and time involved.</p>
+        </div>
+        <div class="policy-list">
+          <div class="policy-item"><strong>Fixed project quotes</strong><span>You'll know the agreed price before work begins.</span></div>
+          <div class="policy-item"><strong>2 revisions included</strong><span>Two reasonable revision rounds are included in the agreed scope.</span></div>
+          <div class="policy-item"><strong>Extra features</strong><span>Anything outside the original scope is quoted separately.</span></div>
+          <div class="policy-item"><strong>Hosting & subscriptions</strong><span>Hosting, domains, and paid third-party services are separate.</span></div>
+          <div class="policy-item"><strong>Maintenance</strong><span>Ongoing updates and support can be discussed separately.</span></div>
+          <div class="policy-item"><strong>Starting prices</strong><span>Listed prices are estimates, not guaranteed final totals.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing wrap" id="contact">
+      <div class="eyebrow">Have something in mind?</div>
+      <h2>Let's make it work.</h2>
+      <p>Have an idea, a problem to solve, or a project that needs a little technical help? Reach out to discuss the scope and get a quote.</p>
+      <a class="button primary" href="mailto:REPLACE-WITH-YOUR-EMAIL">Contact about a project <span aria-hidden="true">↗</span></a>
+      <p class="subnote">Before publishing, replace the placeholder email address in this button with your actual project contact email.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© <span id="year"></span> afterhours. All rights reserved.</span>
+      <span>Built with care, after hours.</span>
+    </div>
+  </footer>
+  <script>
+
+    // Reveal content as it enters the viewport; cards get a subtle stagger.
+    const motionTargets = document.querySelectorAll(
+      '.section-title, .price-card, .policy-panel, .closing .eyebrow, .closing h2, .closing p, .closing .button'
+    );
+    motionTargets.forEach((element, index) => {
+      element.classList.add('reveal');
+      if (element.classList.contains('price-card')) {
+        element.style.transitionDelay = `${(index % 6) * 65}ms`;
+      }
+    });
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, activeObserver) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            activeObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
+
+      motionTargets.forEach(element => observer.observe(element));
+    } else {
+      motionTargets.forEach(element => element.classList.add('is-visible'));
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
